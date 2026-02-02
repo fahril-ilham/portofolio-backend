@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +11,21 @@
     <p>Software Engineering Learner</p>
 
     <h2>My Projects</h2>
+    <a href="/projects/create">+ Tambah Project</a>
+
+    @if (session('success'))
+        <p style="color: green">{{ session('success') }}</p>
+    @endif
+
     @if ($projects->count())
         <ul>
             @foreach ($projects as $project)
                 <div>
                     <h3>{{ $project->title }}</h3>
                     <p>{{ $project->description }}</p>
+                    <ul>
+                        <li>{{ $project->tech_stack }}</li>
+                    </ul>
                 </div>
             @endforeach
         </ul>
