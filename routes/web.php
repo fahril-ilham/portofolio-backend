@@ -7,3 +7,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PortofolioController::class, 'index']);
 Route::get('/projects/create', [PortofolioController::class, 'create']);
 Route::post('/projects', [PortofolioController::class, 'store']);
+Route::get('/projects/{project}/edit', [PortofolioController::class, 'edit']);
+Route::put('/projects/{project}', [PortofolioController::class, 'update']);
+Route::delete('/projects/{project}', [PortofolioController::class, 'destroy']);
