@@ -26,6 +26,18 @@
                     <ul>
                         <li>{{ $project->tech_stack }}</li>
                     </ul>
+                    <span>
+                        <a href="/projects/{{ $project-> id }}/edit">Edit</a>
+
+                        <form action="/projects/{{ $project->id }}" method="post" style="display:inline;">
+                            @csrf
+                            @method('delete')
+
+                            <button type="submit" onclick="return confirm('Yakin hapus project ini?')">
+                                Hapus
+                            </button>
+                        </form>
+                    </span>
                 </div>
             @endforeach
         </ul>
