@@ -26,8 +26,8 @@ Software Engineering Learner | Web Developer
 
 ## 🚀 Features (Progressive)
 - [✔] Project setup Laravel
-- [ ] CRUD Project (Create, Read, Update, Delete)
-- [ ] Form validation
+- [✔] CRUD Project (Create, Read, Update, Delete)
+- [✔] Form validation
 - [ ] Database seeding
 - [ ] Authentication (Admin login)
 - [ ] REST API
