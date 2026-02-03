@@ -31,4 +31,29 @@ class PortofolioController extends Controller
 
         return redirect('/')->with('success', 'Project berhasil ditambahkan.');
     }
+
+    public function edit(Project $project)
+    {
+        return view('projects.edit', compact('project'));
+    }
+
+    public function update(Request $request, Project $project)
+    {
+        $validated = $request->validate([
+            'title' => 'required|min:3',
+            'description' => 'required',
+            'tech_stack' => 'nullable',
+        ]);
+
+        $project->update($validated);
+
+        return redirect('/')->with('success', 'Project berhasil diperbarui.');
+    }
+
+    public function destroy(Project $project)
+    {
+        $project->delete();
+
+        return redirect('/')->with('success','Project berhasil dihapus.');
+    }
 }
