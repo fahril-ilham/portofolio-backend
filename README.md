@@ -50,6 +50,7 @@ Software Engineering Learner | Web Developer
 - ⏳ **Phase 3.2**: Form Input + Validation (CREATE)
 - ⏳ **Phase 3.3**: Full CRUD (UPDATE & DELETE)
 - ⏳ **Phase 3.4**: Database Seeding
+- ⏳ **Phase 3.5**: API Resource + JSON Response
 - ⏳ **Phase 4**: Auth (Login Admin)
 - ⏳ **Phase 5**: REST API (planned)
 - ⏳ **Phase 6**: Front-End Terpisah (planned)
