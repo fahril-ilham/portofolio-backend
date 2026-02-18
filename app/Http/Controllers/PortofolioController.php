@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use Symfony\Component\HttpFoundation\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class PortofolioController extends Controller
 {
