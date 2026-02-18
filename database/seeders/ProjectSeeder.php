@@ -8,6 +8,8 @@ use App\Models\Project;
 
 class ProjectSeeder extends Seeder
 {
+    use WithoutModelEvents;
+    
     /**
      * Run the database seeds.
      */
