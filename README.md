@@ -28,7 +28,7 @@ Software Engineering Learner | Web Developer
 - [✔] Project setup Laravel
 - [✔] CRUD Project (Create, Read, Update, Delete)
 - [✔] Form validation
-- [ ] Database seeding
+- [✔] Database seeding
 - [ ] Authentication (Admin login)
 - [ ] REST API
 - [ ] Frontend consume API
