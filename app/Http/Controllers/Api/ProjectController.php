@@ -55,19 +55,17 @@ class ProjectController extends Controller
      *  GET /api/projects/{id}
      *  ======================
     */
-    public function show($id)
+    public function show(Project $project)
     {
-        $project = Project::find($id);
-
-        if (!$project) {
-            return response()->json([
-                'message' => 'Project tidak ditemukan.'
-            ], 404);
-        }
-
-        return (new ProjectResource($project))
-            ->response()
-            ->setStatusCode(200);
+        /** Phase 3.5 - Step 3
+         *  Upgrade: Route Model Binding
+         *  Fungsi: Ambil data berdasarkan ID di URL, jika tidak ada otomatis 404
+        */
+        return response()->json([
+            'success' => true,
+            'message' => 'Detail project berhasil diambil',
+            'data' => new ProjectResource($project)
+        ], 200);
     }
 
     /** Phase 3.5 - Step 2
@@ -85,10 +83,6 @@ class ProjectController extends Controller
 
         $project = Project::create($validated);
 
-        // return (new ProjectResource($project))
-        //     ->response()
-        //     ->setStatusCode(201); // Created
-
         return response()->json([
             'message' => 'Project berhasil dibuat',
             'data' => new ProjectResource($project)
@@ -100,16 +94,8 @@ class ProjectController extends Controller
      *  PUT /api/projects/{id}
      *  ======================
     */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
-        $project = Project::find($id);
-
-        if (!$project) {
-            return response()->json([
-                'message' => 'Project tidak ditemukan.'
-            ], 404);
-        }
-
         $validated = $request->validate([
             'title' => 'required|min:3',
             'description' => 'required',
@@ -117,10 +103,6 @@ class ProjectController extends Controller
         ]);
 
         $project->update($validated);
-
-        // return (new ProjectResource($project))
-        //     ->response()
-        //     ->setStatusCode(200);
 
         return response()->json([
             'message' => 'Project berhasil di-update',
@@ -133,16 +115,8 @@ class ProjectController extends Controller
      *  DELETE /api/projects/{id}
      *  ======================
     */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        $project = Project::find($id);
-
-        if (!$project) {
-            return response()->json([
-                'message' => 'Project tidak ditemukan.'
-            ], 404);
-        }
-
         $project->delete();
 
         return response()->json([
