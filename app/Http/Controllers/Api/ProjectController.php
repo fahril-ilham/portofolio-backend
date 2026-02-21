@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    /** Phase 3.5 - Step 2
-     *  ======================
-     *  GET /api/projects
-     *  ======================
-    */
     public function index()
     {
         /** Phase 3.5 - Step 1
@@ -26,10 +21,33 @@ class ProjectController extends Controller
         return ProjectResource::collection($projects);
         */
 
+        /** Phase 3.5 - Step 2
+         *  ======================
+         *  GET /api/projects
+         *  ======================
         $projects = Project::latest()->get();
         return ProjectResource::collection($projects)
             ->response()
             ->setStatusCode(200);
+        */
+
+        /** Phase 3.5 - Step 3
+         *  Upgrade: Pagination
+         *  Fungsi Pagination membagi data menjadi halaman
+        */
+        $projects = Project::latest()->paginate(5);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Daftar Project berhasil diambil',
+            'data' => ProjectResource::collection($projects),
+            'meta' => [
+                'current_page' => $projects->currentPage(),
+                'last_page' => $projects->lastPage(),
+                'per_page' => $projects->perPage(),
+                'total' => $projects->total(),
+            ]
+        ], 200);
     }
 
     /** Phase 3.5 - Step 2
