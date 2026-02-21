@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,5 +17,43 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+
+        // Validation Error
+        $exceptions->render(function (ValidationException $e, $request) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->validator->errors()->first(),
+                'errors' => $e->errors()
+            ], 422);
+        });
+
+        // General Error
+        $exceptions->render(function (Throwable $e, $request) {
+
+            // Kalau ini HTTP exception (404, 403, dll)
+            if ($e instanceof HttpExceptionInterface) {
+
+                $statusCode = $e->getStatusCode();
+
+                // Kalau 404
+                if ($statusCode === 404) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Data tidak ditemukan.'
+                    ], 404);
+                }
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Terjadi kesalahan.'
+                ], $statusCode);
+            }
+
+            // Fallback error 500
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan pada server.'
+            ], 500);
+        });
+
     })->create();
