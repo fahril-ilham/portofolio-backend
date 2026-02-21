@@ -83,7 +83,16 @@ class ProjectController extends Controller
 
         $project = Project::create($validated);
 
+        /** Phase 3.5 - Step 3
+         *  Upgrade: Response format standar
+         *  Fungsi:
+         *      Supaya frontend tahu:
+         *      - Apakah request berhasil?
+         *      - Pesan apa yang ditampilkan?
+         *      - Data apa yang dipakai?
+         */
         return response()->json([
+            'success' => true,
             'message' => 'Project berhasil dibuat',
             'data' => new ProjectResource($project)
         ], 201);
@@ -105,6 +114,7 @@ class ProjectController extends Controller
         $project->update($validated);
 
         return response()->json([
+            'success' => true,
             'message' => 'Project berhasil di-update',
             'data' => new ProjectResource($project)
         ], 200);
@@ -120,6 +130,7 @@ class ProjectController extends Controller
         $project->delete();
 
         return response()->json([
+            'success' => true,
             'message' => 'Project berhasil dihapus.'
         ], 200);
     }
