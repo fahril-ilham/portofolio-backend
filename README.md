@@ -29,7 +29,7 @@ Software Engineering Learner | Web Developer
 - [✔] CRUD Project (Create, Read, Update, Delete)
 - [✔] Form validation
 - [✔] Database seeding
-- [ ] Authentication (Admin login)
+- [✔] Authentication (Admin login)
 - [ ] REST API
 - [ ] Frontend consume API
 
