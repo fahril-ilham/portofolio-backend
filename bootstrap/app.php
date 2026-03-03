@@ -46,7 +46,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
                 $statusCode = $e->getStatusCode();
 
-                // Kalau 404
+                // Error 404 - ModelNotFoundException
                 if ($statusCode === 404) {
                     return response()->json([
                         'success' => false,
