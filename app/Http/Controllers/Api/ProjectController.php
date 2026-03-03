@@ -39,7 +39,7 @@ class ProjectController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Daftar Project berhasil diambil',
+            'message' => 'Daftar project berhasil diambil',
             'data' => ProjectResource::collection($projects),
             'meta' => [
                 'current_page' => $projects->currentPage(),
@@ -63,7 +63,7 @@ class ProjectController extends Controller
         */
         return response()->json([
             'success' => true,
-            'message' => 'Detail project berhasil diambil',
+            'message' => 'Detail project berhasil diambil.',
             'data' => new ProjectResource($project)
         ], 200);
     }
@@ -93,7 +93,7 @@ class ProjectController extends Controller
          */
         return response()->json([
             'success' => true,
-            'message' => 'Project berhasil dibuat',
+            'message' => 'Project berhasil dibuat.',
             'data' => new ProjectResource($project)
         ], 201);
     }
@@ -115,7 +115,7 @@ class ProjectController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Project berhasil di-update',
+            'message' => 'Project berhasil diperbarui.',
             'data' => new ProjectResource($project)
         ], 200);
     }
