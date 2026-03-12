@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         /** Phase 3.5 - Step 1
         // // Blok kode berikut membuat Backend langsung kirim HTML (tampilan)
@@ -35,11 +35,45 @@ class ProjectController extends Controller
          *  Upgrade: Pagination
          *  Fungsi Pagination membagi data menjadi halaman
         */
-        $projects = Project::latest()->paginate(5);
+
+        // Phase 5.2 - Filtering, Search, Sorting (Real-World API)
+        $query = Project::query();
+
+        // Search by title
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        // Filter by tech_stack
+        if ($request->filled('tech_stack')) {
+            /** WHERE tech_stack = PHP, Bootstrap
+             * nilai harus sama persis
+
+            $query->where('tech_stack', $request->tech_stack);
+            */
+
+            /** WHERE tech_stack LIKE "%PHP%"
+             * filter lebih fleksibel
+            */
+            $query->where('tech_stack', 'like', '%' . $request->tech_stack . '%');
+        }
+
+        // Sorting
+        if ($request->filled('sort')) {
+            if ($request->sort === 'oldest') {
+                $query->oldest();
+            } else {
+                $query->latest();
+            }
+        } else {
+            $query->latest(); // default
+        }
+
+        $projects = $query->paginate(5)->appends($request->query());
 
         return response()->json([
             'success' => true,
-            'message' => 'Daftar project berhasil diambil',
+            'message' => 'Daftar project berhasil diambil.',
             'data' => ProjectResource::collection($projects),
             'meta' => [
                 'current_page' => $projects->currentPage(),
