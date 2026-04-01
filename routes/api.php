@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\V1\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 // This code to test API Resource + JSON Response
