@@ -69,12 +69,11 @@ class ProjectController extends Controller
             $query->latest(); // default
         }
 
-        $perPage = $request->get('per_page', 3);
+        $perPage = (int) $request->get('per_page', 3);
 
         // Batasi maksimal (biar tidak overload)
-        if ($perPage > 5) {
-            $perPage = 5;
-        }
+        if ($perPage <= 0) $perPage = 3;
+        if ($perPage > 5) $perPage = 5;
 
         $projects = $query->paginate($perPage)->appends($request->query());
 
