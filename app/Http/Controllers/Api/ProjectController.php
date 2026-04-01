@@ -69,7 +69,14 @@ class ProjectController extends Controller
             $query->latest(); // default
         }
 
-        $projects = $query->paginate(5)->appends($request->query());
+        $perPage = $request->get('per_page', 3);
+
+        // Batasi maksimal (biar tidak overload)
+        if ($perPage > 5) {
+            $perPage = 5;
+        }
+
+        $projects = $query->paginate($perPage)->appends($request->query());
 
         return response()->json([
             'success' => true,
@@ -80,6 +87,14 @@ class ProjectController extends Controller
                 'last_page' => $projects->lastPage(),
                 'per_page' => $projects->perPage(),
                 'total' => $projects->total(),
+                'from' => $projects->firstItem(),
+                'to' => $projects->lastItem(),
+            ],
+            'links' => [
+                'first' => $projects->url(1),
+                'last' => $projects->url($projects->lastItem()),
+                'prev' => $projects->previousPageUrl(),
+                'next' => $projects->nextPageUrl(),
             ]
         ], 200);
     }
