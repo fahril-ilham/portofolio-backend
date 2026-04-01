@@ -125,9 +125,9 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|min:3',
-            'description' => 'required',
-            'tech_stack' => 'nullable'
+            'title' => 'required|string|min:3|max:255',
+            'description' => 'required|string',
+            'tech_stack' => 'nullable|string|max:255'
         ]);
 
         $project = Project::create($validated);
@@ -155,9 +155,9 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $validated = $request->validate([
-            'title' => 'required|min:3',
-            'description' => 'required',
-            'tech_stack' => 'nullable'
+            'title' => 'required|string|min:3|max:255',
+            'description' => 'required|string',
+            'tech_stack' => 'nullable|string|max:255'
         ]);
 
         $project->update($validated);
