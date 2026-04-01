@@ -31,7 +31,12 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Admin berhasil dibuat.',
             'data' => [
-                'user' => $user,
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'role' => $user->role,
+                ],
                 'token' => $token
             ]
         ], 201);
@@ -59,7 +64,12 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Login berhasil.',
             'data' => [
-                'user' => $user,
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'role' => $user->role,
+                ],
                 'token' => $token
             ]
         ], 200);
